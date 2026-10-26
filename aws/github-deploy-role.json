@@ -1,0 +1,89 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "Least-privilege GitHub Actions role for publishing the CloudBlock portfolio page",
+  "Parameters": {
+    "SiteBucketName": {
+      "Type": "String",
+      "Description": "BucketName output from the cloudblock-docs stack"
+    },
+    "DistributionId": {
+      "Type": "String",
+      "Description": "DistributionId output from the cloudblock-docs stack"
+    }
+  },
+  "Resources": {
+    "GitHubOidcProvider": {
+      "Type": "AWS::IAM::OIDCProvider",
+      "Properties": {
+        "Url": "https://token.actions.githubusercontent.com",
+        "ClientIdList": [
+          "sts.amazonaws.com"
+        ]
+      }
+    },
+    "GitHubDeployRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": "CloudBlockGitHubDeployRole",
+        "MaxSessionDuration": 3600,
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": {
+                  "Fn::GetAtt": [
+                    "GitHubOidcProvider",
+                    "Arn"
+                  ]
+                }
+              },
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                  "token.actions.githubusercontent.com:sub": "repo:athen-g@175140042/CloudBlock@1434159441:ref:refs/heads/main"
+                }
+              }
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "PublishCloudBlockPortfolio",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": "s3:PutObject",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:s3:::${SiteBucketName}/index.html"
+                  }
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": "cloudfront:CreateInvalidation",
+                  "Resource": {
+                    "Fn::Sub": "arn:${AWS::Partition}:cloudfront::${AWS::AccountId}:distribution/${DistributionId}"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "RoleArn": {
+      "Value": {
+        "Fn::GetAtt": [
+          "GitHubDeployRole",
+          "Arn"
+        ]
+      }
+    }
+  }
+}
