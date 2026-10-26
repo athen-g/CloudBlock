@@ -1,12 +1,17 @@
-name: Deploy portfolio to AWS
+name: Deploy CloudBlock documentation to AWS
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
     paths:
-      - "portfolio/index.html"
+      - 'src/**'
+      - 'index.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vite.config.js'
+      - '.github/workflows/deploy-portfolio.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -23,15 +28,26 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies and build
+        run: |
+          npm ci
+          npm run build
+
       - name: Configure AWS credentials with GitHub OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Upload the portfolio page
+      - name: Upload the built documentation page
         run: |
-          aws s3 cp portfolio/index.html "s3://${{ vars.SITE_BUCKET }}/index.html" --content-type "text/html; charset=utf-8" --cache-control "public, max-age=300"
+          aws s3 cp dist/index.html "s3://${{ vars.SITE_BUCKET }}/index.html" --content-type "text/html; charset=utf-8" --cache-control "public, max-age=300"
 
       - name: Refresh CloudFront
         run: |
