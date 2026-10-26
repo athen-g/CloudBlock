@@ -4,9 +4,9 @@ This project publishes only portfolio/index.html through a CloudFront distributi
 
 ## AWS resources
 
-1. In the AWS console, create a CloudFormation stack named cloudblock-docs from template.json.
+1. In the AWS console, create a CloudFormation stack named CloudBlockPortfolio from template.json.
 2. Wait for CREATE_COMPLETE and record BucketName, DistributionId, and WebsiteURL from the first stack outputs.
-3. Create a second CloudFormation stack named cloudblock-github-deploy from github-deploy-role.json. Supply SiteBucketName and DistributionId from the first stack.
+3. Create a second CloudFormation stack named CloudBlockGitHubDeploy from github-deploy-role.json. Supply SiteBucketName and DistributionId from the first stack.
 
 The second stack creates an IAM OIDC identity provider for GitHub Actions and a role. Its trust policy is restricted to the immutable repository and owner IDs for athen-g/CloudBlock, on main. The role can upload only the root index.html object and create invalidations only for the specified distribution. It does not grant access to read or list the bucket.
 
@@ -14,7 +14,7 @@ The second stack creates an IAM OIDC identity provider for GitHub Actions and a 
 
 In athen-g/CloudBlock, open Settings > Secrets and variables > Actions and configure:
 
-- Repository secret AWS_DEPLOY_ROLE_ARN: the RoleArn output from cloudblock-github-deploy.
+- Repository secret AWS_DEPLOY_ROLE_ARN: the RoleArn output from CloudBlockGitHubDeploy.
 - Repository variable AWS_REGION: the region containing the S3 bucket (for this project, eu-north-1).
 - Repository variable SITE_BUCKET: the BucketName output.
 - Repository variable CLOUDFRONT_DISTRIBUTION_ID: the DistributionId output.
