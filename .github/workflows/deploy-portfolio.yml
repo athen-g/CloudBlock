@@ -2,6 +2,11 @@ name: Deploy portfolio to AWS
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "portfolio/index.html"
 
 permissions:
   contents: read
