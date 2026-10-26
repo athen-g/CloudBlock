@@ -13,9 +13,10 @@ export default function BlockCalculator() {
   if (trimmed !== '') {
     if (isNaN(num) || num < 0) {
       isInvalid = true
-    } else if (num > 0) {
+    } else {
       const bytes = unit === 'mib' ? num * 1048576 : num
-      blocks = Math.ceil(bytes / 65536)
+      // The project creates one authenticated empty block for a zero-byte file.
+      blocks = Math.max(1, Math.ceil(bytes / 65536))
       overLimit = bytes > 10485760
     }
   }

@@ -5,7 +5,7 @@ export default function Overview() {
   return (
     <Section id="overview" number="01" title="Overview">
       <p>
-        CloudBlock is a Mini Project 2 educational tool demonstrating client-side file
+        CloudBlock is a Mini Project 2 educational tool demonstrating local file
         encryption using block splitting.
       </p>
       <p>
@@ -19,7 +19,7 @@ export default function Overview() {
       </p>
       <p>
         This is a single-user local prototype. It has no accounts, database, replication, or
-        cloud file sync. Encrypted data never leaves the user&apos;s machine.
+        cloud file sync. The app stores encrypted archives locally and does not send them to AWS.
       </p>
       <p>
         This documentation site is hosted separately on AWS (CloudFront + S3) and contains

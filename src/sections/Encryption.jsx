@@ -9,7 +9,7 @@ export default function Encryption() {
         CloudBlock uses authenticated encryption to protect each block independently. The encryption key is derived from the user&apos;s password using PBKDF2-HMAC-SHA256 with 600,000 iterations and a fresh 16-byte random salt, producing a 256-bit (32-byte) cryptographic key.
       </p>
       <p>
-        To ensure strong password entropy, CloudBlock enforces that passwords must be at least 12 characters long.
+        The app requires passwords of at least 12 characters.
       </p>
 
       <Figure03 />
@@ -18,7 +18,7 @@ export default function Encryption() {
         Each block is encrypted independently using AES-256-GCM (Galois/Counter Mode). For each block encryption operation, a fresh, cryptographically secure 12-byte random nonce is generated.
       </p>
       <p>
-        To prevent ciphertext rearrangement, block deletion, or metadata substitution, CloudBlock incorporates Associated Authenticated Data (AAD) into each AES-GCM cipher invocation. The AAD is constructed as the canonical manifest JSON bytes plus an ASCII colon (<code>:</code>) plus the zero-based block index as ASCII text (e.g., <code>header + b&apos;:&apos; + str(i).encode()</code>). This mathematically binds each block to its specific index and to the exact archive metadata.
+        CloudBlock supplies Associated Authenticated Data (AAD) to each AES-GCM operation. It combines the manifest JSON bytes, an ASCII colon (<code>:</code>), and the zero-based block index (for example, <code>header + b&apos;:&apos; + str(i).encode()</code>). This binds each encrypted block to its index and archive metadata; recovery also checks that the archive contains the expected block entries.
       </p>
       <p>
         The encrypted block byte layout is:
