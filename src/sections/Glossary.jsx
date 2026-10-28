@@ -53,7 +53,7 @@ const TERMS = [
 
 export default function Glossary() {
   return (
-    <Section id="glossary" number="08" title="Glossary">
+    <Section id="glossary" number="09" title="Glossary">
       <dl className="glossary-list">
         {TERMS.map((t) => (
           <div className="glossary-item" key={t.term}>

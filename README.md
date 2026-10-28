@@ -6,6 +6,8 @@ The repository also contains a technical documentation site about CloudBlock. Th
 
 **CloudFront site:** https://d3kx026zzkouwc.cloudfront.net
 
+The site also includes an in-browser version of the tool (Section 07, `src/crypto/cblock.js`). It is a Web Crypto port of `storage.py` that runs entirely in the visitor's browser tab: the file and password are never uploaded, and the archives use the same `.cblock` format, so they can be recovered with `decrypt.py` and vice versa. AWS still only serves the static page.
+
 ## Run the Python app locally
 
 Requires Python 3.10 or later.

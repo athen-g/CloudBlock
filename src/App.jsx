@@ -6,6 +6,7 @@ import Splitting from './sections/Splitting'
 import Encryption from './sections/Encryption'
 import Archive from './sections/Archive'
 import Recovery from './sections/Recovery'
+import BrowserTry from './sections/BrowserTry'
 import Boundary from './sections/Boundary'
 import Glossary from './sections/Glossary'
 import Footer from './sections/Footer'
@@ -17,9 +18,10 @@ const SECTIONS = [
   { id: 'encryption', num: '04', title: 'Encryption' },
   { id: 'archive', num: '05', title: 'Encrypted Download' },
   { id: 'recovery', num: '06', title: 'Recovery & Integrity' },
-  { id: 'boundary', num: '07', title: 'Local vs Cloud' },
-  { id: 'glossary', num: '08', title: 'Glossary' },
-  { id: 'project', num: '09', title: 'Project Info' },
+  { id: 'browser-tool', num: '07', title: 'Try It in Your Browser' },
+  { id: 'boundary', num: '08', title: 'Local vs Cloud' },
+  { id: 'glossary', num: '09', title: 'Glossary' },
+  { id: 'project', num: '10', title: 'Project Info' },
 ]
 
 export default function App() {
@@ -81,6 +83,7 @@ export default function App() {
         <Encryption />
         <Archive />
         <Recovery />
+        <BrowserTry />
         <Boundary />
         <Glossary />
         <Footer />

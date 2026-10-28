@@ -105,7 +105,7 @@ const REFERENCES = [
 
 export default function Footer() {
   return (
-    <Section id="project" number="09" title="Limitations, Team & References">
+    <Section id="project" number="10" title="Limitations, Team & References">
       <h3>Known Limitations</h3>
       <ul>
         <li>Single-user prototype with no accounts, authentication system, or user management.</li>
@@ -113,6 +113,7 @@ export default function Footer() {
         <li>No file deletion UI in the current version.</li>
         <li>Maximum file size: 10 MiB.</li>
         <li>Password and file data pass through local HTTP and server memory — do not expose to LAN or internet.</li>
+        <li>The in-browser tool (Section 07) keeps the file and password in the browser tab and sends nothing to a server. It has no accounts or storage, and, like the local app, it has not been independently audited.</li>
         <li>Eight local test methods have been run and passed. These tests validate the encryption and decryption logic locally and do not test or validate the AWS deployment.</li>
       </ul>
 

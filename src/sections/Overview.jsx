@@ -23,7 +23,8 @@ export default function Overview() {
       </p>
       <p>
         This documentation site is hosted separately on AWS (CloudFront + S3) and contains
-        no user data.
+        no user data. It also includes an in-browser version of the tool (Section 07) that
+        encrypts and recovers files inside your browser tab and produces the same archive format.
       </p>
       <Callout type="info">
         <p>

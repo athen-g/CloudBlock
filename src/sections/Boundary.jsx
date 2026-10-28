@@ -4,7 +4,7 @@ import Figure07 from '../blueprints/Figure07'
 
 export default function Boundary() {
   return (
-    <Section id="boundary" number="07" title="Local App vs Cloud-Hosted Page">
+    <Section id="boundary" number="08" title="Local App vs Cloud-Hosted Page">
       <p>
         CloudBlock maintains a strict architectural separation between two completely independent environments:
       </p>
@@ -17,7 +17,7 @@ export default function Boundary() {
         </li>
       </ol>
       <p>
-        Encrypted files NEVER cross to AWS. The documentation site contains no user data, processes no files, and cannot communicate with or access the local encryption application.
+        Encrypted files NEVER cross to AWS. The documentation site stores no user data and has no backend to receive any. Its in-browser tool (Section 07) runs entirely inside your browser tab using the Web Crypto API, so the file and password are never sent to AWS, and the page cannot communicate with or access the local encryption application.
       </p>
       <p>
         The automated GitHub Actions deployment workflow publishes only this static documentation page (<code>index.html</code>) using short-lived AWS IAM OIDC federation tokens. The least-privilege IAM deployment role permits strictly two actions: uploading the root <code>index.html</code> object to the S3 bucket and creating a CloudFront cache invalidation.
